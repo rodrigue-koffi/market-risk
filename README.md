@@ -1,6 +1,5 @@
 
 # market-risk
-=======
 \# Market Risk Modeling – VaR \& Expected Shortfall (Python)
 
 \## Overview
