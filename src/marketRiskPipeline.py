@@ -23,3 +23,11 @@ df = computeMonteCarloVaR(df, alpha=0.99)
 
 df = computeHistoricalES(df, alpha=0.99)
 df = computeMonteCarloES(df, alpha=0.975)
+from backtesting.kupiecTest import kupiecTest
+from backtesting.trafficLight import trafficLight
+from stress.stressScenarios import stressReturns
+
+btResult = kupiecTest(df, varCol="varHist_99", alpha=0.99)
+light = trafficLight(btResult["exceptions"])
+
+dfStress = stressReturns(df)
