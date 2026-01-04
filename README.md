@@ -1,9 +1,7 @@
-<<<<<<< HEAD
+
 # market-risk
 =======
 \# Market Risk Modeling – VaR \& Expected Shortfall (Python)
-
-
 
 \## Overview
 
@@ -14,8 +12,6 @@ banking and regulatory best practices (Basel / FRTB).
 It covers the full workflow from market data preparation to risk measures,
 
 backtesting, and stress testing.
-
-
 
 \## Scope
 
