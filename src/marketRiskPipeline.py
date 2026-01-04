@@ -1,5 +1,6 @@
 from data.loadData import loadMarketData
 from data.returns import computeLogReturns
+
 from volatility.historicalVol import computeHistoricalVol
 from volatility.garchVol import computeGarchVol
 
@@ -10,24 +11,62 @@ from var.monteCarloVar import computeMonteCarloVaR
 from es.historicalES import computeHistoricalES
 from es.monteCarloES import computeMonteCarloES
 
-filePath = "XAU_1d_data.csv"
-
-df = loadMarketData(filePath)
-df = computeLogReturns(df)
-df = computeHistoricalVol(df)
-df = computeGarchVol(df)
-
-df = computeParametricVaR(df, alpha=0.99)
-df = computeHistoricalVaR(df, alpha=0.99)
-df = computeMonteCarloVaR(df, alpha=0.99)
-
-df = computeHistoricalES(df, alpha=0.99)
-df = computeMonteCarloES(df, alpha=0.975)
 from backtesting.kupiecTest import kupiecTest
 from backtesting.trafficLight import trafficLight
+
 from stress.stressScenarios import stressReturns
 
-btResult = kupiecTest(df, varCol="varHist_99", alpha=0.99)
-light = trafficLight(btResult["exceptions"])
 
-dfStress = stressReturns(df)
+def goMarketRiskPipeline(filePath: str,alphaVar: float = 0.99,alphaEs: float = 0.975):
+    """
+    pipeline Market Risk :
+    """
+
+    # Chargement des données
+    filePath = "XAU_1d_data.csv"
+    df = loadMarketData(filePath)
+
+
+    # Rendements
+    df = computeLogReturns(df)
+
+    # Volatilité
+    df = computeHistoricalVol(df)
+    df = computeGarchVol(df)
+
+    # VaR
+    df = computeParametricVaR(df, alpha=alphaVar)
+    df = computeHistoricalVaR(df, alpha=alphaVar)
+    df = computeMonteCarloVaR(df, alpha=alphaVar)
+
+    # Expected Shortfall
+    df = computeHistoricalES(df, alpha=alphaVar)
+    df = computeMonteCarloES(df, alpha=alphaEs)
+
+    # Backtesting VaR
+    backtestResult = kupiecTest(
+        df,
+        varCol="varHist_99",
+        alpha=alphaVar
+    )
+
+    traffic = trafficLight(backtestResult["exceptions"])
+
+    # Stress testing
+    dfStress = stressReturns(df)
+
+    return {
+        "data": df,
+        "backtest": backtestResult,
+        "trafficLight": traffic,
+        "stressData": dfStress
+    }
+
+
+def main():
+    filePath = "XAU_1d_data.csv"
+    goMarketRiskPipeline(filePath)
+
+
+if __name__ == "__main__":
+    main()
