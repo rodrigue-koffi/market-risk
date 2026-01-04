@@ -7,6 +7,9 @@ from var.parametricVar import computeParametricVaR
 from var.historicalVar import computeHistoricalVaR
 from var.monteCarloVar import computeMonteCarloVaR
 
+from es.historicalES import computeHistoricalES
+from es.monteCarloES import computeMonteCarloES
+
 filePath = "XAU_1d_data.csv"
 
 df = loadMarketData(filePath)
@@ -17,3 +20,6 @@ df = computeGarchVol(df)
 df = computeParametricVaR(df, alpha=0.99)
 df = computeHistoricalVaR(df, alpha=0.99)
 df = computeMonteCarloVaR(df, alpha=0.99)
+
+df = computeHistoricalES(df, alpha=0.99)
+df = computeMonteCarloES(df, alpha=0.975)
