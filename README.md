@@ -44,3 +44,19 @@ market-risk/
 │   └── marketRiskPipeline.py
 ├── .gitignore
 └── README.md
+## Author
+
+**Rodrigue K. Koffi**  
+FRM Part I Candidate  
+Risk & Quantitative Modeling  
+LinkedIn: https://www.linkedin.com/in/rodrigue-k-011aa01b8
+
+---
+
+## Disclaimer
+
+This project is provided for **educational, research, and portfolio demonstration purposes only**.
+The models, methodologies, and results presented in this repository do **not** constitute financial advice, investment recommendations, or regulatory guidance.  
+They are **simplified representations** of market risk concepts and are **not intended for production use** in a real financial institution without appropriate validation, governance, and regulatory approval.
+All data used are either **synthetic or publicly available**, and no confidential or proprietary information is included.
+The author declines any responsibility for the use of this code in real-world financial, trading
